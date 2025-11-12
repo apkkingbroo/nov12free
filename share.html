@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Apkmodderkings VIP Hack</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root{
+  --bg:#0b1220;
+  --panel:#071226;
+  --accent:#ffd166;
+  --cta:#ff4b3b;
+  --live:#38ef7d;
+  --glass:rgba(255,255,255,0.03);
+  --toast:#29d7e6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;width:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#0b1220 0%,#0b1220 100%);color:#eaf2ff;/* Removed overflow:hidden to allow scroll for modal if needed */}
+a{color:inherit;text-decoration:none}
+
+#container{display:flex;flex-direction:column;height:100%;}
+
+/* top bar 10% */
+#topBar{
+  flex:0 0 10%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(90deg,#081428,#071026);
+  padding:10px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+#topLeft{display:flex;align-items:center;gap:10px;}
+#logo{width:40px;height:40px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,0.1)}
+#title{font-weight:900;font-size:16px;color:var(--accent);display:flex;align-items:center;gap:6px;}
+#title i{color:#0088cc;}
+
+#telegramBox{display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,#1f8bff,#176de0);padding:6px 10px;border-radius:10px;font-weight:800;color:#fff;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,0.4);}
+#telegramBox i{color:#fff;font-size:15px;}
+
+/* main iframe 90% */
+#iframeWrap{flex:1 1 90%;height:90%;}
+#bgFrame{width:100%;height:100%;border:none;display:block;}
+
+/* floating prediction panel */
+#floatPanel{
+  /* Position properties changed for drag functionality */
+  position: absolute; 
+  left: 50%; /* Initial center position */
+  top: 12%; /* Initial top position */
+  transform: translate(-50%, 0); /* Center horizontally */
+  cursor: grab; /* Indicates it's movable */
+  
+  background:rgba(8,20,40,0.85);backdrop-filter:blur(8px);
+  border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:12px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 8px 30px rgba(0,0,0,0.6);
+  z-index: 999; /* Ensure it stays above the iframe */
+}
+#blip{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 8px rgba(56,239,125,0.6)}
+#status{font-weight:800;font-size:12px;color:var(--cta);}
+#prediction{font-weight:900;font-size:15px;background:var(--glass);padding:6px 10px;border-radius:8px;color:#ffdede;text-transform:uppercase;min-width:70px;text-align:center}
+#timer{font-weight:900;font-size:14px;color:var(--cta);min-width:54px;text-align:center}
+
+/* toast */
+#toast{position:fixed;left:50%;transform:translateX(-50%);top:14%;background:linear-gradient(180deg,#0b1012,#0d1113);color:var(--toast);padding:8px 10px;border-radius:10px;border:1px solid rgba(41,215,230,0.09);box-shadow:0 14px 36px rgba(0,0,0,0.45);display:none;z-index:1500}
+#toast .msg{font-size:13px}
+
+/* Share Gate Styles */
+#shareGate{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(10px);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    z-index:1000;
+}
+#sharePanel{
+    max-width:380px;width:90%;
+    background:var(--panel);
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 10px 40px rgba(0,0,0,0.8);
+}
+.share-btn-group{
+    display:flex;justify-content:space-around;gap:10px;margin-top:20px;
+}
+.share-btn{
+    display:flex;flex-direction:column;align-items:center;
+    color:var(--accent);font-weight:600;font-size:12px;
+    transition:transform 0.2s;
+    cursor:pointer;
+}
+.share-btn:hover{transform:scale(1.05);}
+.share-icon{
+    width:55px;height:55px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    font-size:24px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.4);
+    margin-bottom:5px;
+}
+.telegram .share-icon{background:#0088cc;}
+.whatsapp .share-icon{background:#25D366;}
+.facebook .share-icon{background:#4267B2;}
+.message .share-icon{background:linear-gradient(45deg, #1f8bff, #176de0);}
+
+.unlock-msg{
+    font-weight:900;font-size:18px;color:#38ef7d;margin-top:20px;
+}
+.time-left-msg {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+@media(max-width:640px){#title{font-size:14px;}#telegramBox{font-size:12px;}}
+</style>
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- STARTER: SHARE TO UNLOCK GATE (Minimalistic UI) -->
+<!-- ============================================= -->
+<div id="shareGate">
+    <div id="sharePanel">
+        <h2 style="font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 5px;">Unlock this application</h2>
+        <p style="font-size: 14px; color: var(--accent); margin-bottom: 25px;">Share 3 users to continue</p>
+        
+        <!-- Share Count Display -->
+        <div style="padding: 10px 15px; border-radius: 10px; background: rgba(255,255,255,0.08); font-size: 24px; font-weight: 800; border: 1px solid rgba(255,255,255,0.1);">
+            Share Count: <span id="shareCountDisplay" style="color:var(--live);">0</span> / 3
+        </div>
+
+        <!-- Share Buttons (Now call specific share functions) -->
+        <div class="share-btn-group">
+            <div class="share-btn telegram" onclick="handleShare('telegram')">
+                <div class="share-icon"><i class="fab fa-telegram-plane"></i></div>
+                Telegram
+            </div>
+            <div class="share-btn whatsapp" onclick="handleShare('whatsapp')">
+                <div class="share-icon"><i class="fab fa-whatsapp"></i></div>
+                WhatsApp
+            </div>
+            <div class="share-btn facebook" onclick="handleShare('facebook')">
+                <div class="share-icon"><i class="fab fa-facebook-f"></i></div>
+                Facebook
+            </div>
+            <div class="share-btn message" onclick="handleShare('message')">
+                <div class="share-icon"><i class="fas fa-sms"></i></div>
+                Message
+            </div>
+        </div>
+
+        <p id="shareHint" style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 20px;">
+            (इनमें से कोई भी बटन दबाने पर काउंट बढ़ेगा)
+        </p>
+        
+        <p id="unlockedMessage" class="unlock-msg" style="display: none;">
+             🎉 एक्सेस अनलॉक! अब आगे बढ़ें!
+        </p>
+        
+        <p id="timeLeftMessage" class="time-left-msg" style="display: none;"></p>
+
+    </div>
+</div>
+<!-- ============================================= -->
+<!-- END: SHARE TO UNLOCK GATE -->
+<!-- ============================================= -->
+
+
+<div id="container" style="display: none;">
+  <div id="topBar">
+    <div id="topLeft">
+      <img id="logo" src="https://i.ibb.co/Zz3nkzFj/x.jpg" alt="logo">
+      <div id="title"><i class="fab fa-telegram-plane"></i> Apkmodderkings</div>
+    </div>
+    <a id="telegramBox" href="https://telegram.me/apkmodderkings" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> JOIN TELEGRAM</a>
+  </div>
+  <div id="iframeWrap">
+    <iframe id="bgFrame" src="https://82bet22.com/#/register?invitationCode=14244992621" title="82 Lottery"></iframe>
+  </div>
+</div>
+
+<div id="floatPanel">
+  <span id="blip"></span>
+  <div id="status">LIVE</div>
+  <div id="prediction">SMALL</div>
+  <div id="timer">00:00</div>
+</div>
+
+<div id="toast"><div class="msg" id="toastMsg"></div></div>
+
+<script>
+// =============================================
+// SHARE GATE LOGIC (WITH 24-HOUR TIMER)
+// =============================================
+const shareGate = document.getElementById('shareGate');
+const mainContainer = document.getElementById('container');
+const shareCountDisplay = document.getElementById('shareCountDisplay');
+const unlockedMessage = document.getElementById('unlockedMessage');
+const shareHint = document.getElementById('shareHint');
+const timeLeftMessage = document.getElementById('timeLeftMessage');
+const floatPanel = document.getElementById('floatPanel'); // Get the float panel element
+
+let shareCount = 0;
+const requiredShares = 3;
+const storageKey = 'currentUnlockStatus'; // 0 or 1 (locked/unlocked)
+const timestampKey = 'shareGateUnlockTime'; // Unix timestamp
+
+// --- Share Content Variables ---
+const shareText = "🔥 FREE VIP HACK APK! 🔥\n\nFor more such types of free premium APKs and hacks, join our channel:\n\n🔗 https://telegram.me/apkmodderkings\n\nClick here to download the latest mod: " + window.location.href;
+
+
+// --- Share Functions (Simulated) ---
+
+function shareLink(platform) {
+    // This is the simulated sharing action
+    const currentUrl = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(shareText);
+    
+    let url = '';
+    
+    switch(platform) {
+        case 'telegram':
+            url = `https://t.me/share/url?url=${currentUrl}&text=${text}`;
+            break;
+        case 'whatsapp':
+            url = `whatsapp://send?text=${text} ${currentUrl}`;
+            break;
+        case 'facebook':
+            // Facebook sharing uses URL and usually ignores custom text, so we use a simple share URL
+            url = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+            break;
+        case 'message':
+            // Fallback for generic sharing (opens native share sheet on mobile, or clipboard copy)
+            if (navigator.share) {
+                navigator.share({
+                    title: 'VIP Hack APK',
+                    text: shareText,
+                    url: window.location.href,
+                }).catch(error => console.log('Error sharing', error));
+                return; // Prevent window.open if using navigator.share
+            } else {
+                // Generic share fallback (using window.open as a last resort)
+                showToast("Please manually copy and paste the link to share!");
+                // Simulating successful share after user sees the instruction
+                break;
+            }
+        default:
+            return;
+    }
+    
+    // Open the share URL if it was generated and navigator.share wasn't used
+    if (url) {
+        window.open(url, '_blank');
+    }
+}
+
+
+// Load state from local storage on startup
+function loadShareState() {
+    if (typeof(Storage) !== "undefined") {
+        const unlockTime = localStorage.getItem(timestampKey);
+        const isUnlocked = localStorage.getItem(storageKey);
+        const now = Date.now();
+        const twentyFourHoursInMs = 24 * 60 * 60 * 1000;
+        
+        // 1. Check if it was previously unlocked
+        if (isUnlocked === '1' && unlockTime) {
+            const expiryTime = parseInt(unlockTime, 10) + twentyFourHoursInMs;
+            
+            // 2. Check if 24 hours have passed
+            if (now < expiryTime) {
+                // Not expired yet: Grant access and update remaining time message
+                shareCount = requiredShares; // Set count to show it's unlocked
+                updateShareUI(expiryTime);
+                return;
+            } else {
+                // Expired: Reset status and force user to share again
+                localStorage.removeItem(storageKey);
+                localStorage.removeItem(timestampKey);
+                shareCount = 0;
+            }
+        }
+        
+        // Load partial share count if available (e.g., user shared once but closed)
+        const partialShareCount = localStorage.getItem('partialShareCount');
+        if (partialShareCount && isUnlocked !== '1') {
+             shareCount = parseInt(partialShareCount, 10);
+        } else if (isUnlocked !== '1') {
+             shareCount = 0;
+        }
+    }
+    updateShareUI();
+}
+
+// Helper to format remaining time
+function formatTimeRemaining(expiryTime) {
+    const remainingMs = expiryTime - Date.now();
+    if (remainingMs <= 0) return "अब आप फिर से शेयर कर सकते हैं!";
+
+    const totalSeconds = Math.floor(remainingMs / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return `एक्सेस प्राप्त है। अगले शेयर के लिए शेष: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Update UI (Show/Hide Gate)
+function updateShareUI(expiryTime = null) {
+    shareCountDisplay.textContent = shareCount;
+    
+    if (shareCount >= requiredShares) {
+        // UNLOCK ACCESS
+        shareGate.style.display = 'none';
+        mainContainer.style.display = 'flex'; // Show the main content
+        
+        // Show floatPanel only after unlocking
+        document.getElementById('floatPanel').style.display = 'flex'; 
+        document.getElementById('toast').style.display = 'none'; 
+        
+        // Start showing the time left message (only for unlocked state)
+        if (expiryTime) {
+            timeLeftMessage.style.display = 'block';
+            clearInterval(window.timerInterval);
+            window.timerInterval = setInterval(() => {
+                const now = Date.now();
+                if (now >= expiryTime) {
+                    clearInterval(window.timerInterval);
+                    loadShareState(); // Reload state to reset the gate
+                    return;
+                }
+                timeLeftMessage.textContent = formatTimeRemaining(expiryTime);
+            }, 1000);
+        }
+
+
+    } else {
+        // KEEP LOCKED
+        shareGate.style.display = 'flex';
+        mainContainer.style.display = 'none'; // Hide the main content
+        
+        // Hide floatPanel and toast while the gate is active
+        document.getElementById('floatPanel').style.display = 'none'; 
+        document.getElementById('toast').style.display = 'none'; 
+        
+        unlockedMessage.style.display = 'none';
+        shareHint.style.display = 'block';
+        timeLeftMessage.style.display = 'none';
+    }
+}
+
+// Handle Share Button Click
+function handleShare(platform) {
+    if (shareCount < requiredShares) {
+        // 1. Initiate the actual share action
+        shareLink(platform);
+
+        // 2. Increment count after share (simulated success)
+        shareCount++;
+        // Save partial count
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem('partialShareCount', shareCount);
+        }
+        
+        shareCountDisplay.textContent = shareCount;
+
+        if (shareCount >= requiredShares) {
+            // Final share: set unlock status and timestamp
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem(storageKey, '1');
+                localStorage.setItem(timestampKey, Date.now().toString());
+                localStorage.removeItem('partialShareCount'); // Clear partial count
+            }
+            
+            unlockedMessage.style.display = 'block';
+            shareHint.style.display = 'none';
+            
+            const expiryTime = Date.now() + (24 * 60 * 60 * 1000);
+            showToast("एक्सेस अनलॉक किया गया! आपको रीडायरेक्ट किया जा रहा है...");
+            // Wait 1.5 seconds then transition to the main page
+            setTimeout(() => {
+                updateShareUI(expiryTime);
+            }, 1500); 
+
+        } else {
+            showToast(`शेयर किया! अब ${requiredShares - shareCount} बार और!`);
+        }
+    }
+}
+
+// Initialize share gate state
+loadShareState();
+
+// =============================================
+// DRAGGABLE FLOAT PANEL LOGIC
+// =============================================
+let isDragging = false;
+let startX, startY, initialX, initialY;
+
+// Setup Dragging (for desktop and mobile)
+function setupDragListeners(element) {
+    // Mouse Events for Desktop
+    element.addEventListener('mousedown', dragStart);
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('mousemove', drag);
+    
+    // Touch Events for Mobile
+    element.addEventListener('touchstart', dragStart, { passive: true });
+    document.addEventListener('touchend', dragEnd);
+    document.addEventListener('touchmove', drag, { passive: false }); // Needs to be non-passive for preventDefault
+}
+
+function dragStart(e) {
+    if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return; // Ignore if clicking on interactive elements
+    
+    isDragging = true;
+    floatPanel.style.cursor = 'grabbing';
+    floatPanel.style.transition = 'none'; // Disable transition during drag
+
+    // Get touch or mouse coordinates
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+    // Get initial position relative to the viewport
+    const rect = floatPanel.getBoundingClientRect();
+    initialX = rect.left;
+    initialY = rect.top;
+    
+    // Calculate offset
+    startX = clientX - initialX;
+    startY = clientY - initialY;
+    
+    if (e.type.includes('touch')) {
+        // Prevent accidental scrolling while dragging on mobile
+        e.preventDefault(); 
+    }
+}
+
+function drag(e) {
+    if (!isDragging) return;
+    
+    // Get touch or mouse coordinates
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+    let newX = clientX - startX;
+    let newY = clientY - startY;
+
+    // Boundary Check (optional, but good practice)
+    const bounds = {
+        minX: 0,
+        minY: 0,
+        maxX: window.innerWidth - floatPanel.offsetWidth,
+        maxY: window.innerHeight - floatPanel.offsetHeight
+    };
+
+    newX = Math.max(bounds.minX, Math.min(newX, bounds.maxX));
+    newY = Math.max(bounds.minY, Math.min(newY, bounds.maxY));
+
+    // Apply new position using absolute positioning
+    floatPanel.style.left = newX + 'px';
+    floatPanel.style.top = newY + 'px';
+    floatPanel.style.transform = 'none'; // Remove the initial centering transform
+}
+
+function dragEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    floatPanel.style.cursor = 'grab';
+    floatPanel.style.transition = 'all 0.3s ease'; // Re-enable transition for smooth snaps/effects later
+}
+
+// Attach listeners to the float panel
+setupDragListeners(floatPanel);
+
+// =============================================
+// ORIGINAL CODE LOGIC (UNCHANGED)
+// =============================================
+const hackPred=document.getElementById('prediction');
+const timerEl=document.getElementById('timer');
+const toast=document.getElementById('toast');
+const toastMsg=document.getElementById('toastMsg');
+let toastTimer;
+function showToast(msg){clearTimeout(toastTimer);toast.style.display='block';toastMsg.textContent=msg;toastTimer=setTimeout(()=>{toast.style.display='none';},4000);}
+function randPred(){return Math.random()<0.8?'SMALL':'BIG';}
+let current=randPred();
+function updateTick(){const now=new Date();const s=now.getUTCSeconds();const rem=60-s;timerEl.textContent=`${String(Math.floor(rem/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;if(s>=55){hackPred.textContent='WAIT';hackPred.style.opacity='0.6';}else if(s===0){current=randPred();hackPred.textContent=current;hackPred.style.opacity='1';showToast('New Prediction: '+current);}else{hackPred.textContent=current;hackPred.style.opacity='1';}}
+updateTick();setInterval(updateTick,1000);
+</script>
+</body>
+</html>
+
